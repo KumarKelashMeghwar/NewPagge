@@ -6,6 +6,7 @@ import { useState } from "react";
 
 const App = () => {
   let [enabledId, setEnabledId] = useState(-1);
+  let [stateData, setStateData] = useState(data);
 
   let [values, setValues] = useState({
     appId: "",
@@ -22,6 +23,14 @@ const App = () => {
     hvbe: "",
   });
 
+  const changeValue = (rowIndex, name, value) => {
+    let row = stateData[rowIndex];
+    row[name] = value;
+    let stateCopy = [...stateData];
+    stateCopy[rowIndex] = row;
+    setStateData(stateCopy);
+  };
+
   const eventHandler = (e) => {
     let [name, value] = e.target;
     setValues({
@@ -30,9 +39,9 @@ const App = () => {
     });
   };
 
-  function toggleEnable(appId) {
-    if (enabledId === appId) setEnabledId(-1);
-    else setEnabledId(appId);
+  function toggleEnable(rowIndex) {
+    if (enabledId === rowIndex) setEnabledId(-1);
+    else setEnabledId(rowIndex);
   }
 
   return (
@@ -59,7 +68,7 @@ const App = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map((elem, index) => {
+            {stateData.map((elem, index) => {
               values.appId = elem.appId;
               values.appName = elem.appName;
               values.state = elem.state;
@@ -82,7 +91,7 @@ const App = () => {
                           : "bi bi-pencil"
                       }
                       style={{ cursor: "pointer" }}
-                      onClick={() => toggleEnable(elem.appId)}
+                      onClick={() => toggleEnable(index)}
                     ></i>
                     &nbsp; &nbsp;
                     <i
@@ -93,18 +102,20 @@ const App = () => {
                   <td>
                     <input
                       type="text"
-                      disabled={elem.appId !== enabledId}
+                      disabled={index !== enabledId}
                       style={{ width: "50px" }}
                       name="appId"
                       value={values.appId}
-                      onChange={(e) => eventHandler(e)}
+                      onChange={(e) =>
+                        changeValue(index, "appId", e.target.value)
+                      }
                     />
                   </td>
                   <td>
                     <input
                       type="text"
                       value={values.appName}
-                      disabled={elem.appId !== enabledId}
+                      disabled={index !== enabledId}
                       style={{ width: "130px" }}
                       name="appName"
                       onChange={(e) => eventHandler(e)}
@@ -114,7 +125,7 @@ const App = () => {
                     <input
                       type="text"
                       value={values.state}
-                      disabled={elem.appId !== enabledId}
+                      disabled={index !== enabledId}
                       style={{ width: "70px" }}
                       name="state"
                       onChange={(e) => eventHandler(e)}
@@ -124,7 +135,7 @@ const App = () => {
                     <input
                       type="text"
                       value={values.lob}
-                      disabled={elem.appId !== enabledId}
+                      disabled={index !== enabledId}
                       style={{ width: "50px" }}
                       name="lob"
                       onChange={(e) => eventHandler(e)}
@@ -134,7 +145,7 @@ const App = () => {
                     <input
                       type="text"
                       value={values.jpmc_sox}
-                      disabled={elem.appId !== enabledId}
+                      disabled={index !== enabledId}
                       style={{ width: "30px" }}
                       name="jpmc_sox"
                       onChange={(e) => eventHandler(e)}
@@ -144,7 +155,7 @@ const App = () => {
                     <input
                       type="text"
                       value={values.jpmc_ccap}
-                      disabled={elem.appId !== enabledId}
+                      disabled={index !== enabledId}
                       style={{ width: "30px" }}
                       name="jpmc_ccap"
                       onChange={(e) => eventHandler(e)}
@@ -154,7 +165,7 @@ const App = () => {
                     <input
                       type="text"
                       value={values.ssae_soci}
-                      disabled={elem.appId !== enabledId}
+                      disabled={index !== enabledId}
                       style={{ width: "30px" }}
                       name="ssae_soci"
                       onChange={(e) => eventHandler(e)}
@@ -164,7 +175,7 @@ const App = () => {
                     <input
                       type="text"
                       value={values.pci}
-                      disabled={elem.appId !== enabledId}
+                      disabled={index !== enabledId}
                       style={{ width: "30px" }}
                       name="pci"
                       onChange={(e) => eventHandler(e)}
@@ -174,7 +185,7 @@ const App = () => {
                     <input
                       type="text"
                       value={values.phi}
-                      disabled={elem.appId !== enabledId}
+                      disabled={index !== enabledId}
                       style={{ width: "30px" }}
                       name="phi"
                       onChange={(e) => eventHandler(e)}
@@ -184,7 +195,7 @@ const App = () => {
                     <input
                       type="text"
                       value={values.glba}
-                      disabled={elem.appId !== enabledId}
+                      disabled={index !== enabledId}
                       style={{ width: "30px" }}
                       name="glba"
                       onChange={(e) => eventHandler(e)}
@@ -194,7 +205,7 @@ const App = () => {
                     <input
                       type="text"
                       value={values.mnpi}
-                      disabled={elem.appId !== enabledId}
+                      disabled={index !== enabledId}
                       style={{ width: "30px" }}
                       name="mnpi"
                       onChange={(e) => eventHandler(e)}
@@ -204,7 +215,7 @@ const App = () => {
                     <input
                       type="text"
                       value={values.hvbe}
-                      disabled={elem.appId !== enabledId}
+                      disabled={index !== enabledId}
                       style={{ width: "30px" }}
                       name="hvbi"
                       onChange={(e) => eventHandler(e)}
