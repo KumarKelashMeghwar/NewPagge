@@ -3,7 +3,7 @@ import React from "react";
 const SecondPage = () => {
   return (
     <>
-      <div className="container my-5">
+      <div className="container-fluid">
         <table className="table table-striped">
           <thead>
             <tr>

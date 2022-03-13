@@ -2,14 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import SecondPage from "./SecondPage";
-import ThirdPage from "./ThirdPage";
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <App /> */}
-    {/* <SecondPage /> */}
-    <ThirdPage />
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );
