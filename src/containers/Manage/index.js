@@ -1,50 +1,47 @@
 import React from "react";
-
+import { useState, useEffect } from "react";
 const SecondPage = () => {
+  const [posts, setPosts] = useState([]);
+  const getData = async () => {
+    const response = await fetch(
+      "https://jsonplaceholder.typicode.com/comments?postId=1"
+    );
+    const res = await response.json();
+    setPosts(res);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <>
       <div className="container-fluid">
         <table className="table table-striped">
           <thead>
             <tr>
-              <th scope="col">Actions</th>
-              <th scope="col">Report Name</th>
-              <th scope="col">CIO LOB</th>
-              <th scope="col">Start Date</th>
-              <th scope="col">End Date</th>
-              <th scope="col">No of Applications</th>
-              <th scope="col">Type of Report</th>
-              <th scope="col">Relies on CIB ITGC Report</th>
+              <th scope="col">Post ID</th>
+              <th scope="col">ID</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Body </th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>
-                <i className="bi bi-pencil" style={{ cursor: "pointer" }}></i>
-                &nbsp; &nbsp;
-                <i
-                  className="bi bi-clock-history"
-                  style={{ cursor: "pointer" }}
-                ></i>
-              </td>
-              <td>
-                <select name="reports" id="reports">
-                  <option value="Test_SOC_1">Test_SOC_1</option>
-                  <option value="Test_SOC_2">Test_SOC_2</option>
-                  <option value="Test_SOC_3">Test_SOC_3</option>
-                  <option value="Test_SOC_4">Test_SOC_4</option>
-                  <option value="Test_SOC_5">Test_SOC_5</option>
-                </select>
-              </td>
-              <td>CB</td>
-              <td>11/16</td>
-              <td>12/16</td>
-              <td>1</td>
-              <td>SOC1</td>
-              <td>Yes</td>
-            </tr>
+            {posts.map((elem) => {
+              return (
+                <tr key={elem.id}>
+                  <td>{elem.postId}</td>
+                  <td>{elem.id}</td>
+                  <td>{elem.name}</td>
+                  <td>{elem.email}</td>
+                  <td style={{ width: "470px" }}>{elem.body}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
+
         {/* Second table */}
         <table
           className="table "
